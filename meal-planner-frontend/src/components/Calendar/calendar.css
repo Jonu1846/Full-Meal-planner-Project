@@ -1,0 +1,186 @@
+/* ===== Calendar Container ===== */
+.calendar-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 40px;
+  background: rgba(2, 6, 23, 0.85);
+  /* near black-blue */
+  border-radius: 16px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+}
+
+/* ===== Background Image ===== */
+.calendar-container.bg-image {
+  background: url('../../assets/calender-img.jpg') no-repeat center/cover;
+}
+
+/* Overlay for readability */
+.calendar-container.bg-image::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 16px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ===== Day Names ===== */
+.calendar-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 22px;
+  font-weight: 700;
+  color: #38BDF8;
+  /* Sky Blue accent for day names */
+  text-align: center;
+  font-size: 18px;
+  position: relative;
+  z-index: 1;
+}
+
+.calendar-header div {
+  padding: 10px 0;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.7);
+  border-radius: 6px;
+}
+
+/* ===== Calendar Grid ===== */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 16px;
+  padding: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== Calendar Cell ===== */
+.calendar-cell {
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  background: linear-gradient(145deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.95));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+
+  /* 3D Border Effect */
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+  border-right: 2px solid rgba(0, 0, 0, 0.5);
+
+  /* Depth Shadows (Neumorphic Dark) */
+  box-shadow:
+    8px 8px 20px rgba(0, 0, 0, 0.7),
+    -4px -4px 12px rgba(255, 255, 255, 0.02),
+    inset 1px 1px 0px rgba(255, 255, 255, 0.05);
+
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.calendar-cell:hover {
+  transform: translateY(-6px) scale(1.03);
+  background: linear-gradient(145deg, rgba(56, 189, 248, 0.15), rgba(15, 23, 42, 0.95));
+  box-shadow:
+    12px 12px 25px rgba(0, 0, 0, 0.8),
+    -4px -4px 15px rgba(56, 189, 248, 0.1);
+  border-top-color: rgba(56, 189, 248, 0.3);
+  border-left-color: rgba(56, 189, 248, 0.3);
+}
+
+
+.calendar-cell.empty {
+  opacity: 0.35;
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-color: transparent;
+  box-shadow: none;
+  cursor: default;
+}
+
+/* ===== Date Number ===== */
+.date-number {
+  font-size: 22px;
+  font-weight: 600;
+  color: #E2E8F0;
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== When meals exist ===== */
+.calendar-cell.has-meals {
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 12px;
+}
+
+.calendar-cell.has-meals .date-number {
+  font-size: 16px;
+}
+
+/* ===== Meal Indicator ===== */
+.meal-indicators {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  color: #F8FAFC;
+  /* Soft white icon */
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+  z-index: 1;
+}
+
+/* ===== Today ===== */
+.calendar-cell.today {
+  background: linear-gradient(145deg, #1e293b, #0f172a);
+  border: 2px solid #38BDF8;
+  box-shadow:
+    0 0 15px rgba(56, 189, 248, 0.4),
+    inset 0 0 10px rgba(56, 189, 248, 0.2);
+}
+
+.calendar-cell.today .date-number {
+  color: #38BDF8;
+  font-weight: 800;
+  text-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
+}
+
+/* ===== Selected ===== */
+.calendar-cell.selected {
+  background: linear-gradient(145deg, #1d4ed8, #1e40af);
+  border-top: 2px solid rgba(0, 0, 0, 0.3);
+  border-left: 2px solid rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow:
+    inset 6px 6px 12px rgba(0, 0, 0, 0.4),
+    inset -4px -4px 10px rgba(255, 255, 255, 0.1);
+  transform: translateY(2px);
+}
+
+.calendar-cell.selected .date-number {
+  color: #F8FAFC;
+}
+
+/* ===== Past Date ===== */
+.calendar-cell.past-date {
+  opacity: 0.55;
+  cursor: not-allowed;
+  background: rgba(15, 23, 42, 0.5);
+  box-shadow: 6px 6px 14px rgba(0, 0, 0, 0.6), -4px -4px 10px rgba(255, 255, 255, 0.03);
+}
+
+.calendar-cell.past-date:hover {
+  transform: none;
+  box-shadow: 6px 6px 14px rgba(0, 0, 0, 0.6), -4px -4px 10px rgba(255, 255, 255, 0.03);
+  background: rgba(15, 23, 42, 0.5);
+}
